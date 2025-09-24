@@ -295,6 +295,32 @@ BREAKOUT_OF_MUTE:
   // based on bpm
   uint32_t samples_to_read;
   if (banks[sel_bank_cur]->sample[sel_sample_cur].snd[FILEZERO]->tempo_match) {
+
+    #ifdef INCLUDE_ECTOCORE
+    samples_to_read =
+      round(buffer->max_sample_count * sf->bpm_tempo * envelope_pitch_val *
+            (ectocore_clock_out_divisions[ectocore_clock_selected_division] / 8) *
+            pitch_vals[sf->pitch_val_index] * scratch_pitch *
+            pitch_vals[retrig_pitch] *
+            (banks[sel_bank_cur]
+                 ->sample[sel_sample_cur]
+                 .snd[FILEZERO]
+                 ->oversampling +
+             1) /
+            banks[sel_bank_cur]->sample[sel_sample_cur].snd[FILEZERO]->bpm);
+    #else
+    samples_to_read =
+        round(buffer->max_sample_count * sf->bpm_tempo * envelope_pitch_val *
+              pitch_vals[sf->pitch_val_index] * scratch_pitch *
+              pitch_vals[retrig_pitch] *
+              (banks[sel_bank_cur]
+                   ->sample[sel_sample_cur]
+                   .snd[FILEZERO]
+                   ->oversampling +
+               1) /
+              banks[sel_bank_cur]->sample[sel_sample_cur].snd[FILEZERO]->bpm);
+    #endif
+
     samples_to_read =
         round(buffer->max_sample_count * sf->bpm_tempo * envelope_pitch_val *
               pitch_vals[sf->pitch_val_index] * scratch_pitch *
