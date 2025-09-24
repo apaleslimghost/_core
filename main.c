@@ -380,10 +380,11 @@ bool __not_in_flash_func(timer_step)() {
       if (fil_is_open && debounce_quantize == 0) {
         if (clock_in_do) {
           beat_current = (int)roundf((float)clock_in_beat_total * 96.0f /
-                                     (float)banks[sel_bank_cur]
+                                     ((float)banks[sel_bank_cur]
                                          ->sample[sel_sample_cur]
                                          .snd[FILEZERO]
-                                         ->splice_trigger) %
+                                         ->splice_trigger * ectocore_clock_out_divisions[ectocore_clock_selected_division] /
+                                                 8))) %
                          banks[sel_bank_cur]
                              ->sample[sel_sample_cur]
                              .snd[FILEZERO]
