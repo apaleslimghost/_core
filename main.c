@@ -384,7 +384,7 @@ bool __not_in_flash_func(timer_step)() {
                                          ->sample[sel_sample_cur]
                                          .snd[FILEZERO]
                                          ->splice_trigger * ectocore_clock_out_divisions[ectocore_clock_selected_division] /
-                                                 8))) %
+                                                 8)) %
                          banks[sel_bank_cur]
                              ->sample[sel_sample_cur]
                              .snd[FILEZERO]
