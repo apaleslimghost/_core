@@ -110,16 +110,16 @@ jobs:
         run: |
           make zeptoboard
           cp zeptoboard.uf2 zeptoboard_${{ github.event.release.name }}.uf2
-      - name: Prepare source tarball
-        run: |
-          git clone -b ${{ github.event.release.name }} --depth 1 https://github.com/schollz/_core _core-${{ github.event.release.name }}
-          cd _core-${{ github.event.release.name }}/core && go mod tidy && go mod vendor
-          cd ../.. && tar -czvf _core_${{ github.event.release.name }}_src.tar.gz _core-${{ github.event.release.name }}
+      # - name: Prepare source tarball
+      #   run: |
+      #     git clone -b ${{ github.event.release.name }} --depth 1 https://github.com/schollz/_core _core-${{ github.event.release.name }}
+      #     cd _core-${{ github.event.release.name }}/core && go mod tidy && go mod vendor
+      #     cd ../.. && tar -czvf _core_${{ github.event.release.name }}_src.tar.gz _core-${{ github.event.release.name }}
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            _core_${{ github.event.release.name }}_src.tar.gz
+            # _core_${{ github.event.release.name }}_src.tar.gz
             zeptocore_${{ github.event.release.name }}.uf2
             zeptocore_${{ github.event.release.name }}_ultralow_latency.uf2
             zeptocore_${{ github.event.release.name }}_low_latency.uf2
